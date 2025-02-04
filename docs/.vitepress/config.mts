@@ -1,8 +1,9 @@
-import { defineConfig } from 'vitepress'
+import { DefaultTheme, defineConfig, UserConfig } from 'vitepress'
 import Unocss from 'unocss/vite'
+import { withSidebar } from 'vitepress-sidebar'
+import { VitePressSidebarOptions } from 'vitepress-sidebar/types'
 
-// https://vitepress.dev/reference/site-config
-export default defineConfig({
+const vitepressOptions: UserConfig<DefaultTheme.Config> = {
   base: '/daniel.github.io/',
   description: '胡曙光的个人页',
   lang: 'zh-CN',
@@ -27,25 +28,28 @@ export default defineConfig({
       { text: '博客', link: '/blogs' },
       { text: '日常', link: '/life' },
       { text: '联系', link: '/contact' }
-    ],
-
-    sidebar: {
-      '/blogs/': [
-        {
-          text: '博客',
-          base: '/blogs',
-          items: [
-            { text: 'vite2.0 配置清单', link: '/2021-06-10' },
-            { text: 'Vue3.0 setup 语法糖尝试', link: '/2021-06-29' },
-            { text: 'unplugin-vue-components 在 vite 中的使用和配置', link: '/2022-02-21' },
-            { text: '算法：有序数组生成二叉搜索树', link: '/2022-02-27' },
-            { text: 'Language Server Protocol 的基础实现', link: '/2024-03-25' }
-          ]
-        }
-      ],
-      '/life/': [{ text: '日常', base: '/life', link: '/', collapsed: true, items: [] }]
-    }
+    ]
 
     // socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }]
   }
-})
+}
+
+const vitepressSidebarOptions: VitePressSidebarOptions[] = [
+  {
+    documentRootPath: 'docs',
+    scanStartPath: 'blogs',
+    basePath: '/blogs/',
+    resolvePath: '/blogs/',
+    useTitleFromFileHeading: true
+  },
+  {
+    documentRootPath: 'docs',
+    scanStartPath: 'life',
+    basePath: '/life/',
+    resolvePath: '/life/',
+    useTitleFromFileHeading: true
+  }
+]
+
+// https://vitepress.dev/reference/site-config
+export default defineConfig(withSidebar(vitepressOptions, vitepressSidebarOptions))
