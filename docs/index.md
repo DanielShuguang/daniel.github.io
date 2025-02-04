@@ -13,7 +13,7 @@ hero:
     - theme: alt
       text: 个人简历
       target: _blank
-      link: /public/胡曙光个人简历.pdf
+      link: /daniel.github.io/胡曙光个人简历.pdf
 
 features:
   - title: 现居
