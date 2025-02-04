@@ -1,1 +1,0 @@
-import{_ as e,c as t,o,ag as r}from"./chunks/framework.ByciF0Oj.js";const i="/jiayou.gif",h=JSON.parse('{"title":"关于","description":"","frontmatter":{},"headers":[],"relativePath":"about.md","filePath":"about.md"}'),n={name:"about.md"};function s(p,a,c,l,_,d){return o(),t("div",null,a[0]||(a[0]=[r("",9)]))}const b=e(n,[["render",s]]);export{h as __pageData,b as default};
