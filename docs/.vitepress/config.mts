@@ -2,7 +2,6 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: '/daniel-home/',
   description: '胡曙光的个人页',
   lang: 'zh-CN',
   title: 'Daniel Hu',
