@@ -4,6 +4,6 @@
 
 daniel_hsg@foxmail.com
 
-<img alt="QQ" style="display: inline-block; margin-right: 30px" width="150px" src="/qq-qr.jpg" />
+<img alt="QQ" class="inline-block mr-[30px]" width="150px" src="/qq-qr.jpg" />
 
-<img alt="微信" style="display: inline-block" width="150px" src="/wechat-qr.jpg" />
+<img alt="微信" class="inline-block" width="150px" src="/wechat-qr.jpg" />

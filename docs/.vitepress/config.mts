@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import Unocss from 'unocss/vite'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -6,6 +7,9 @@ export default defineConfig({
   description: '胡曙光的个人页',
   lang: 'zh-CN',
   title: 'Daniel Hu',
+  vite: {
+    plugins: [Unocss()]
+  },
   themeConfig: {
     search: {
       provider: 'local'

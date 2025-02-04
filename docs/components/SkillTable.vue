@@ -1,4 +1,7 @@
 <script setup>
+import { useData } from 'vitepress'
+import { computed } from 'vue'
+
 const { type } = defineProps({
   type: String
 })
@@ -104,72 +107,34 @@ function getTypeList() {
   }
   return map[type]
 }
+
+const { isDark } = useData()
+const hoverColor = computed(() => {
+  if (isDark.value) {
+    return 'hover:bg-[#1e293b]'
+  }
+  return 'hover:bg-[#f1f5f9]'
+})
+
+const textColor = computed(() => {
+  if (isDark.value) {
+    return 'text-[#94a3b8]'
+  }
+  return 'text-[#64748b]'
+})
 </script>
 
 <template>
-  <div class="skill-wrapper">
-    <div class="skill-item" v-for="item in getTypeList()" :key="item.name">
-      <img class="pic" :src="item.icon" :alt="item.name" />
-      <div class="text">{{ item.name }}</div>
+  <div
+    :id="isDark"
+    class="w-full grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-4">
+    <div
+      class="flex flex-col items-center justify-center gap-2 p-4 rounded-lg transition-colors"
+      :class="hoverColor"
+      v-for="item in getTypeList()"
+      :key="item.name">
+      <img class="w-12 h-12 object-contain" :src="item.icon" :alt="item.name" />
+      <div class="text-sm text-center font-medium" :class="textColor">{{ item.name }}</div>
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-:global(html) {
-  --textColor: hsl(215.4 16.3% 46.9%);
-  --hoverColor: hsl(210 40% 96.1%);
-}
-:global(html.dark) {
-  --textColor: hsl(215 20.2% 65.1%);
-  --hoverColor: hsl(217.2 32.6% 17.5%);
-}
-
-.skill-wrapper {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-@media not all and (min-width: 1024px) {
-  .skill-wrapper {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-@media not all and (min-width: 768px) {
-  .skill-wrapper {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-.skill-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-
-  &:hover {
-    background-color: var(--hoverColor);
-  }
-
-  .pic {
-    width: 3rem;
-    height: 3rem;
-    object-fit: contain;
-  }
-
-  .text {
-    font-size: 1.2rem;
-    font-weight: 500;
-    text-align: center;
-    color: var(--textColor);
-  }
-}
-</style>
