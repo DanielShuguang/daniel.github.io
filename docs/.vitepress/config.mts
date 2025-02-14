@@ -26,7 +26,7 @@ const vitepressOptions: UserConfig<DefaultTheme.Config> = {
       { text: '技能', link: '/skills' },
       { text: '教育', link: '/education' },
       { text: '博客', link: '/blogs' },
-      { text: '日常', link: '/life' },
+      // { text: '日常', link: '/life' },
       { text: '联系', link: '/contact' }
     ]
 

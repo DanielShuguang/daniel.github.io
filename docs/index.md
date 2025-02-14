@@ -19,7 +19,7 @@ features:
   - title: 现居
     details: 中国湖南省长沙市
   - title: 语言
-    details: 中文和一点英语
+    details: 中文和英语
   - title: 爱好
     details: 写代码，玩游戏，轻微二次元，研究新技术，捣鼓一点有意思的东西，重度音乐患者
 ---
