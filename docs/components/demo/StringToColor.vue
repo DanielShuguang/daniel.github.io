@@ -10,7 +10,7 @@ interface StringToColorConfig {
   complex: boolean
 }
 
-const inputValue = ref('')
+const inputValue = ref('hello world')
 const config = ref<StringToColorConfig>({ complex: false, lightness: 60 })
 
 const colorCache = new Map<string, string>()
@@ -84,6 +84,8 @@ function handleClick() {
     ? stringToColor(inputValue.value) || 'transparent'
     : 'transparent'
 }
+
+handleClick()
 </script>
 
 <template>
