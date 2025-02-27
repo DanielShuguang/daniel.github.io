@@ -8,6 +8,15 @@ const vitepressOptions: UserConfig<DefaultTheme.Config> = {
   description: '胡曙光的个人页',
   lang: 'zh-CN',
   title: 'Daniel Hu',
+  head: [
+    [
+      'meta',
+      {
+        name: 'keywords',
+        content: 'javascript,js,typescript,ts,vue,react,vite,frontend,web,go,rust'
+      }
+    ]
+  ],
   vite: {
     plugins: [Unocss()]
   },
@@ -16,7 +25,7 @@ const vitepressOptions: UserConfig<DefaultTheme.Config> = {
       provider: 'local'
     },
     footer: {
-      message: '© 2025 Daniel Hu',
+      message: `© ${new Date().getFullYear()} Daniel Hu`,
       copyright: 'Licensed under the MIT License.'
     },
     // https://vitepress.dev/reference/default-theme-config
