@@ -104,7 +104,7 @@ handleClick()
       <n-form-item label="复杂哈希算法">
         <n-switch v-model:value="config.complex" />
       </n-form-item>
-      <n-button type="primary" :disabled="!inputValue" @click="handleClick">生效</n-button>
+      <n-button :disabled="!inputValue" @click="handleClick">生效</n-button>
     </n-form>
 
     <div class="size-20" :style="{ background: currentColor }"></div>
