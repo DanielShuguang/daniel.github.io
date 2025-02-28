@@ -1,4 +1,4 @@
-import { App, defineComponent, h, inject } from 'vue'
+import { App, defineComponent, h, inject, onMounted, onUnmounted, ref, shallowRef } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import { useRoute } from 'vitepress'
 import { darkTheme, NConfigProvider } from 'naive-ui'
@@ -23,46 +23,43 @@ const CssRenderStyle = defineComponent({
 const VitepressPath = defineComponent({
   setup() {
     const route = useRoute()
-    return () => {
-      return h('vitepress-path', null, [route.path])
-    }
+    return () => h('vitepress-path', null, [route.path])
   }
 })
 
 export const NaiveUIProvider = defineComponent({
-  data() {
-    return {
-      isDark: false,
-      observer: null as MutationObserver | null
+  setup(_, { slots }) {
+    const isDark = ref(false)
+    const observer = shallowRef<MutationObserver | null>(null)
+
+    function getSystemTheme() {
+      isDark.value = document.documentElement.classList.contains('dark')
     }
-  },
-  methods: {
-    getSystemTheme() {
-      this.isDark = document.documentElement.classList.contains('dark')
-    }
-  },
-  mounted() {
-    this.getSystemTheme()
-    const observer = new MutationObserver(() => this.getSystemTheme())
-    observer.observe(document.documentElement, {
-      attributeFilter: ['class']
+
+    onMounted(() => {
+      observer.value = new MutationObserver(getSystemTheme)
+      observer.value.observe(document.documentElement, {
+        attributeFilter: ['class']
+      })
+
+      getSystemTheme()
     })
-    this.observer = observer
-  },
-  unmounted() {
-    this.observer?.disconnect()
-  },
-  render() {
-    return h(
-      NConfigProvider,
-      { abstract: true, inlineThemeDisabled: true, theme: this.isDark ? darkTheme : undefined },
-      {
-        default: () => [
-          h(Layout, null, { default: this.$slots.default?.() }),
-          (import.meta as any).env.SSR ? [h(CssRenderStyle), h(VitepressPath)] : null
-        ]
-      }
-    )
+
+    onUnmounted(() => {
+      observer.value?.disconnect()
+    })
+
+    return () =>
+      h(
+        NConfigProvider,
+        { abstract: true, inlineThemeDisabled: true, theme: isDark.value ? darkTheme : undefined },
+        {
+          default: () => [
+            h(Layout, null, { default: slots.default?.() }),
+            (import.meta as any).env.SSR ? [h(CssRenderStyle), h(VitepressPath)] : null
+          ]
+        }
+      )
   }
 })
 
