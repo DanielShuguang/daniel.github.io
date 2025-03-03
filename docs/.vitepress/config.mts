@@ -73,7 +73,8 @@ const vitepressSidebarOptions: VitePressSidebarOptions[] = [
     scanStartPath: 'blogs',
     basePath: '/blogs/',
     resolvePath: '/blogs/',
-    useTitleFromFileHeading: true
+    useTitleFromFileHeading: true,
+    collapsed: true
   },
   {
     documentRootPath: 'docs',
