@@ -6,7 +6,7 @@ export interface StringToColorConfig {
   /** 颜色亮度，如果是深色尽量保持在 40 以下 */
   lightness?: number
   /** 是否使用复杂的哈希算法，如果字符串长度较长，建议使用复杂的哈 */
-  complex?: boolean
+  complex?: boolean | number
 }
 
 /**
@@ -35,7 +35,8 @@ export function stringToColor(str: string, config?: StringToColorConfig) {
     // 根据配置选择是否使用复杂的哈希算法
     if (complex) {
       // 复杂哈希算法：使用31作为乘数，累加字符的ASCII值，以产生更均匀的哈希值，根据实际情况可以用更大的素数
-      hash = hash * 31 + str.charCodeAt(i)
+      const prime = typeof complex === 'number' ? complex : 31
+      hash = hash * prime + str.charCodeAt(i)
     } else {
       // 简单哈希算法：使用位移和减法来生成哈希值
       hash = str.charCodeAt(i) + ((hash << 5) - hash)
