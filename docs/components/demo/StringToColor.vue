@@ -1,23 +1,21 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { NInput, NCard, NButton, NInputNumber, NForm, NFormItem, NSwitch } from 'naive-ui'
-import { stringToColor } from '../../utils/color/stringToColor'
-
-interface StringToColorConfig {
-  /** 颜色亮度，如果是深色尽量保持在 40 以下 */
-  lightness: number
-  /** 是否使用复杂的哈希算法，如果字符串长度较长，建议使用复杂的哈 */
-  complex: boolean
-}
+import { stringToColor, StringToColorConfig } from '../../utils/color/stringToColor'
 
 const inputValue = ref('hello world')
 const config = ref<StringToColorConfig>({ complex: false, lightness: 60 })
+const prime = ref(31)
 
 const currentColor = ref('')
 
 function handleClick() {
+  const correctConfig: StringToColorConfig = {
+    ...config.value,
+    complex: config.value.complex ? prime.value : false
+  }
   currentColor.value = inputValue.value
-    ? stringToColor(inputValue.value, config.value) || 'transparent'
+    ? stringToColor(inputValue.value, correctConfig) || 'transparent'
     : 'transparent'
 }
 
@@ -40,7 +38,8 @@ handleClick()
           placeholder="请输入亮度" />
       </n-form-item>
       <n-form-item label="复杂哈希算法">
-        <n-switch v-model:value="config.complex" />
+        <n-switch class="mr-[15px]" v-model:value="config.complex" />
+        <n-input-number v-if="config.complex" v-model:value="prime" />
       </n-form-item>
       <n-button :disabled="!inputValue" @click="handleClick">生效</n-button>
     </n-form>
